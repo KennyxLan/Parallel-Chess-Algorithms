@@ -5,6 +5,7 @@
 #include "chessboard.h"
 #include "humanplayer.h"
 #include "aiplayer.h"
+#include <ctime>
 
 using namespace std;
 
@@ -17,8 +18,17 @@ int main(void) {
 	bool found;
 
 	// Initialize players
-	AIPlayer black(BLACK, 3);
+	////AIPlayer black(BLACK, 3); original search_depth is 3
+	AIPlayer black(BLACK, 4);
 	HumanPlayer white(WHITE);
+
+	//// start: seeding the pseudo random number generator
+	int seed; 
+	//seed = time(nullptr);
+	seed = 1621437416; //// fix the seed for debugging
+	srand(seed);
+	printf("seed == %d\n", seed);
+	//// end: seeding the pseudo random number generator
 
 	// setup board
 	board.initDefaultSetup();

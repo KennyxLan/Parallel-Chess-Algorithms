@@ -12,6 +12,7 @@
 #define QUEEN_VALUE  300	// 1x
 #define KING_VALUE 	 ((PAWN_VALUE * 8) + (ROOK_VALUE * 2) \
 						+ (KNIGHT_VALUE * 2) + (BISHOP_VALUE * 2) + QUEEN_VALUE + WIN_VALUE)
+// KING_VALUE == 51,058
 
 class ChessBoard;
 

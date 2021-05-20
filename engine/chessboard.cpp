@@ -1,5 +1,5 @@
 #include <cstdio>
-#include <cstring>
+#include <cstring> //// memset()
 #include <list>
 #include "chessboard.h"
 #include "chessplayer.h"
@@ -48,6 +48,7 @@ void Move::print(void) const {
 	printf("from %s to %s:\n", field_name[(int)from], field_name[(int)to]);
 }
 
+//// check if two moves are the same
 bool Move::operator==(const Move & b) const
 {
 	if(from != b.from)
@@ -63,9 +64,9 @@ bool Move::operator==(const Move & b) const
 }
 
 
-ChessBoard::ChessBoard()
+ChessBoard::ChessBoard() //// like a constructor, set the whole board to be empty
 {
-	memset((void*)square, EMPTY, sizeof(square));
+	memset((void*)square, EMPTY, sizeof(square));  
 }
 
 void ChessBoard::print(void) const
@@ -81,7 +82,7 @@ void ChessBoard::print(void) const
 		{
 			figure = this->square[row*8+col];
 			repr = getASCIIrepr(figure);
-			unmoved = (IS_MOVED(figure) || (figure == EMPTY)) ? ' ' : '.';
+			unmoved = (IS_MOVED(figure) || (figure == EMPTY)) ? ' ' : '.'; //// if this piece has NEVER been moved, print '.'
 			passant = IS_PASSANT(figure) ? '`' : ' ';
 			printf("|%c%c%c", unmoved, repr, passant);
 		}
@@ -92,7 +93,7 @@ void ChessBoard::print(void) const
 
 char ChessBoard::getASCIIrepr(int figure) const
 {
-	switch(FIGURE(figure))
+	switch(FIGURE(figure)) //// (0x0F & figure)
 	{
 		case PAWN:
 			if(IS_BLACK(figure))
@@ -101,14 +102,14 @@ char ChessBoard::getASCIIrepr(int figure) const
 				return 'x';
 		case ROOK:
 			if(IS_BLACK(figure))
-				return 'T';
+				return 'R';
 			else
-				return 't';
+				return 'r';
 		case KNIGHT:
 			if(IS_BLACK(figure))
-				return 'H';
+				return 'N';
 			else
-				return'h';
+				return'n';
 		case BISHOP:
 			if(IS_BLACK(figure))
 				return 'B';
@@ -129,6 +130,7 @@ char ChessBoard::getASCIIrepr(int figure) const
 	return ' ';
 }
 
+//// set the initial board
 void ChessBoard::initDefaultSetup(void)
 {
 	// clear board
@@ -158,8 +160,8 @@ void ChessBoard::initDefaultSetup(void)
 }
 
 void ChessBoard::getMoves(int color, list<Move> & moves, list<Move> & captures, list<Move> & null_moves)
-{
-	int pos, figure;
+{ //// color:  WHITE 0x00  ,  BLACK 0x10
+	int pos, figure; //// pos == 0 ~ 63
 	
 	for(pos = 0; pos < 64; pos++)
 	{
@@ -202,7 +204,7 @@ void ChessBoard::getPawnMoves(int figure, int pos, list<Move> & moves, list<Move
 
 	// If pawn was previously en passant candidate victim, it isn't anymore.
 	// This is a null move because it has to be executed no matter what.
-	if(IS_PASSANT(figure))
+	if(IS_PASSANT(figure))  //// if this pawn is a passant pawn, push_back a null_move: use the non-passant version of it to capture itself.
 	{
 		new_move.figure = CLEAR_PASSANT(figure);
 		new_move.from = pos;
@@ -210,7 +212,7 @@ void ChessBoard::getPawnMoves(int figure, int pos, list<Move> & moves, list<Move
 		new_move.capture = figure;
 		null_moves.push_back(new_move);
 		
-		figure = CLEAR_PASSANT(figure);
+		figure = CLEAR_PASSANT(figure);   //// make this pawn non-passant
 	}
 
 	// Of course, we only have to set this once
@@ -967,7 +969,7 @@ void ChessBoard::getKingMoves(int figure, int pos, list<Move> & moves, list<Move
 	}
 }
 
-bool ChessBoard::isVulnerable(int pos, int figure) const
+bool ChessBoard::isVulnerable(int pos, int figure) const //// when figure is at pos (0 ~ 63), will figure be captured imediately?
 {
 	int target_pos, target_figure, row, col, i,j, end;
 
@@ -978,13 +980,13 @@ bool ChessBoard::isVulnerable(int pos, int figure) const
 	// 1. Look for Rooks, Queens and Kings above
 	for(target_pos = pos + 8; target_pos < 64; target_pos += 8)
 	{
-		if((target_figure = this->square[target_pos]) != EMPTY)
+		if((target_figure = this->square[target_pos]) != EMPTY) //// if target_figure is not EMPTY
 		{
-			if(IS_BLACK(target_figure) != IS_BLACK(figure))
+			if(IS_BLACK(target_figure) != IS_BLACK(figure)) //// if target_figures and figure have different colors
 			{
-				if((target_pos - pos) == 8)
+				if((target_pos - pos) == 8) //// if target_pos is JUST ABOVE pos
 				{
-					if(FIGURE(target_figure) == KING)
+					if(FIGURE(target_figure) == KING)  //// if target_figure is a king
 						return true;
 				}
 
@@ -1459,7 +1461,7 @@ void ChessBoard::moveKing(const Move & move)
 {
 	// check for castling
 	if(!IS_MOVED(move.figure))
-	{
+	{ //// move rook
 		switch(move.to)
 		{
 			case G1:
