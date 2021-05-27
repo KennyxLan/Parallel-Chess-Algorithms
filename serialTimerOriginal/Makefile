@@ -1,4 +1,4 @@
-SRCDIR = .#./src
+SRCDIR = ./src
 OBJSDIR = ./objs
 OBJS = $(OBJSDIR)/playchess.o $(OBJSDIR)/chessboard.o $(OBJSDIR)/humanplayer.o \
        $(OBJSDIR)/aiplayer.o

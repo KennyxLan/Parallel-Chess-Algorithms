@@ -16,12 +16,13 @@ Enter your moves concatenating field names, e.g. 'b2b4'.
 
 
 =======================================================
-parallel-v1 notes:
+timeSerial notes:
 
-1. Using Pthreads to parallelize the chess AI algorithms.
-2. `aiplayer.cpp` -- parallelization is added.
-3. `playchess.cpp` -- `search_depth` of black aiplayer has been changed from 3 to 4.
-4. `fasttime.h` has been included for measurement of running times.
-5. Some annotations have been added for readability.
-6. Original serial code is kept.
-7. Some other changes.
+1. have two aiplayers competing with each other.
+2. for each move that is made, output the following in a csv file:
+   - turn number, 
+   - color, 
+   - number of searched nodes, 
+   - time taken for that move
+   - that move in plain human language
+

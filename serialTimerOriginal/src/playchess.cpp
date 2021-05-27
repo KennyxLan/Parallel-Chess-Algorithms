@@ -39,13 +39,12 @@ void startAIAdversarialChess(int level, FILE* fp, int* nodeCount) {
 
 		// query player's choice
 		if(turn) {
-			fprintf(fp, "%4d,black,", turnCount);
+			fprintf(fp, "%d,black,", turnCount);
 			
 			start = CycleTimer::currentSeconds();
 			found = black.getMove(board, move, nodeCount);
 			decisionTime = CycleTimer::currentSeconds() - start;
-			//fprintf(fp, "%d,%.20f,", *nodeCount, decisionTime);
-			fprintf(fp, "%11d,%11f,", *nodeCount, decisionTime);
+			fprintf(fp, "%d,%.20f,", *nodeCount, decisionTime);
 			
 			if(turnCount == 1)
 				blackLastMove = move;
@@ -59,12 +58,11 @@ void startAIAdversarialChess(int level, FILE* fp, int* nodeCount) {
 			}
 		}
 		else {
-			fprintf(fp, "%4d,white,", turnCount);
+			fprintf(fp, "%d,white,", turnCount);
 			start = CycleTimer::currentSeconds();
 			found = white.getMove(board, move, nodeCount);
 			decisionTime = CycleTimer::currentSeconds() - start;
-			//fprintf(fp, "%d,%.20f,", *nodeCount, decisionTime);
-			fprintf(fp, "%11d,%11f,", *nodeCount, decisionTime);
+			fprintf(fp, "%d,%.20f,", *nodeCount, decisionTime);
 			
 			if(turnCount == 0)
 				whiteLastMove = move;
@@ -80,7 +78,7 @@ void startAIAdversarialChess(int level, FILE* fp, int* nodeCount) {
 		
 		if(found) {
 			move.print(mesg);
-			fprintf(fp, " %s,\n", mesg);
+			fprintf(fp, "%s,\n", mesg);
 		}
 		
 		if(whiteRepeatNum > TIE_THRESHOLD || blackRepeatNum > TIE_THRESHOLD) {
