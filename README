@@ -18,11 +18,11 @@ Enter your moves concatenating field names, e.g. 'b2b4'.
 =======================================================
 timeSerial notes:
 
-1. have two aiplayers competing with each other.
-2. for each move that is made, output the following in a csv file:
-   - turn number, 
-   - color, 
-   - number of searched nodes, 
+1. Have two aiplayers competing with each other, and time each move.
+2. For each move that is made, output the following in a csv file:
+   - turn number,
+   - color,
+   - number of searched nodes,
    - time taken for that move
    - that move in plain human language
 
