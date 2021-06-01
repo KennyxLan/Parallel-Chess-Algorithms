@@ -1,0 +1,12 @@
+seed == 8888, NUM_THREADS == 4, SEARCH_DEPTH == 4,
+thread0_time,thread1_time,thread2_time,thread3_time,parallel_time,thread0_nodes,thread1_nodes,thread2_nodes,thread3_nodes,serial_time,serial_nodes,best_same,candidates_same,move
+0.035132,0.037603,0.047591,0.047593,0.047608,   53262,   57162,   73144,   57706,0.139757,  241092,OK threadBest == best,OK threadCandidates == candidates,   White pawn from E2 to E3:
+0.098866,0.154736,0.154738,0.154751,0.154754,  145328,  234064,  129719,  143970,0.397170,  650089,OK threadBest == best,OK threadCandidates == candidates,   Black pawn from G7 to G5:
+0.131664,0.131666,0.131666,0.211650,0.211667,  192139,  158641,  170147,  317093,0.526219,  837928,OK threadBest == best,OK threadCandidates == candidates,   White knight from G1 to F3:
+0.176806,0.352402,0.352404,0.352417,0.352419,  241374,  509938,  191364,  272106,0.741837, 1131213,OK threadBest == best,OK threadCandidates == candidates,   Black pawn from F7 to F6:
+0.116813,0.126454,0.155020,0.155022,0.155036,  162412,  173397,  215863,  132173,0.446165,  675691,OK threadBest == best,OK threadCandidates == candidates,   White knight from F3 to G5:
+0.026420,0.062769,0.062771,0.062783,0.062785,   34920,   81285,   65069,   79956,0.165679,  235519,OK threadBest == best,OK threadCandidates == candidates,   Black bishop from F8 to H6:
+0.321387,0.321388,0.389443,1.022251,1.022266,  435720,  157161,  538024, 1405013,0.306560,  442044,OK threadBest == best,OK threadCandidates == candidates,   White queen from D1 to H5:
+0.000059,0.000078,0.000079,0.089679,0.089694,       0,       0,       0,  126202,0.089364,  126202,OK threadBest == best,OK threadCandidates == candidates,   Black king from E8 to F8:
+2.267367,2.267369,2.267369,2.267370,2.267371, 2985958, 1968198, 1661566, 1724099,2.161287, 3037757,OK threadBest == best,OK threadCandidates == candidates,   White queen from H5 to F7:
+0.000035,0.000114,0.000119,0.000120,0.000121,       0,       0,       0,       0,0.000002,       0,OK threadBest == best,OK threadCandidates == candidates,Checkmate
