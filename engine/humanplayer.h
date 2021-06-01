@@ -17,7 +17,7 @@ class HumanPlayer: public ChessPlayer {
 		/*
 		* Ask player what to do
 		*/
-		bool getMove(ChessBoard & board, Move & move) const;
+		bool getMove(ChessBoard & board, Move & move, FILE* filePtr) const;
 		
 		/*
 		* Read input from stdin

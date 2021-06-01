@@ -2,6 +2,7 @@
 #define CHESS_BOARD_H_INCLUDED
 
 #include "chessplayer.h"
+#include <cstdio> // FILE*
 
 // Pieces defined in lower 4 bits
 #define EMPTY	0x00	// Empty square
@@ -37,12 +38,15 @@
 #define BLACK 0x10
 #define TOGGLE_COLOR(x) (0x10 ^ x)
 
+
+
 struct Move
 {
 	/*
 	* Prints sth. like "Black queen from D8 to D7."
 	*/
 	void print(void) const;
+	void print(FILE*) const;
 	
 	/*
 	* True if moves are equal.

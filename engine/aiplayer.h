@@ -13,6 +13,8 @@
 #define KING_VALUE 	 ((PAWN_VALUE * 8) + (ROOK_VALUE * 2) \
 						+ (KNIGHT_VALUE * 2) + (BISHOP_VALUE * 2) + QUEEN_VALUE + WIN_VALUE)
 // KING_VALUE == 51,058
+#define NUM_THREADS 4 //// number of threads, including the main thread
+#define SEARCH_DEPTH 4
 
 class ChessBoard;
 
@@ -27,12 +29,14 @@ class AIPlayer: public ChessPlayer {
 		/*
 		* Ask player what to do next
 		*/
-		bool getMove(ChessBoard & board, Move & move) const;
+		//bool getMove(ChessBoard & board, Move & move) const;
+		bool getMove(ChessBoard & board, Move & move, FILE* filePtr) const;
 
 		/*
 		* MinMax search for best possible outcome
 		*/ 
-		int evalAlphaBeta(ChessBoard & board, int color, int depth, int alpha, int beta, bool quiescent) const;
+		//int evalAlphaBeta(ChessBoard & board, int color, int depth, int alpha, int beta, bool quiescent) const;
+		int evalAlphaBeta(ChessBoard & board, int color, int depth, int alpha, int beta, bool quiescent, int& numOfNodesEvaluated) const;
 
 		/*
 		* For now, this checks only material

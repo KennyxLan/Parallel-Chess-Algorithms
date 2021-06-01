@@ -15,7 +15,7 @@ HumanPlayer::HumanPlayer(int color)
 HumanPlayer::~HumanPlayer()
 {}
 
-bool HumanPlayer::getMove(ChessBoard & board, Move & move) const
+bool HumanPlayer::getMove(ChessBoard & board, Move & move, FILE* filePtr) const
 {
 	list<Move> regulars, nulls;
 	char * input;

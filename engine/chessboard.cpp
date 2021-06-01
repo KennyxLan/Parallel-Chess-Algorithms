@@ -6,7 +6,8 @@
 
 using namespace std;
 
-void Move::print(void) const {
+//void Move::print(void) const {
+void Move::print(FILE* filePtr) const {
 
 	const char * field_name[] = {
 		"A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1",
@@ -19,33 +20,44 @@ void Move::print(void) const {
 		"A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"
 	};		
 
-	if(IS_BLACK(figure))
+	if(IS_BLACK(figure)){
 		printf("   Black ");
-	else 
+		fprintf(filePtr, "   Black ");
+	}
+	else{
 		printf("   White ");
+		fprintf(filePtr, "   White ");
+	}
 
 	switch(FIGURE(figure)) {
 		case PAWN:
 			printf("pawn ");
+			fprintf(filePtr, "pawn ");
 			break;
 		case ROOK:
 			printf("rook ");
+			fprintf(filePtr, "rook ");
 			break;
 		case KNIGHT:
 			printf("knight ");
+			fprintf(filePtr, "knight ");
 			break;
 		case BISHOP:
 			printf("bishop ");
+			fprintf(filePtr, "bishop ");
 			break;
 		case QUEEN:
 			printf("queen ");
+			fprintf(filePtr, "queen ");
 			break;
 		case KING:
 			printf("king ");
+			fprintf(filePtr, "king ");
 			break;
 	}
 	
 	printf("from %s to %s:\n", field_name[(int)from], field_name[(int)to]);
+	fprintf(filePtr, "from %s to %s:\n", field_name[(int)from], field_name[(int)to]);
 }
 
 //// check if two moves are the same

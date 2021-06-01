@@ -1,5 +1,6 @@
 #ifndef CHESS_PLAYER_H_INCLUDED
 #define CHESS_PLAYER_H_INCLUDED
+#include <cstdio> // FILE*
 
 class ChessBoard;
 class Move;
@@ -19,7 +20,8 @@ class ChessPlayer
 		/*
 		* Ask player what to do next
 		*/
-		virtual bool getMove(ChessBoard & board, Move & move) const = 0;
+		//virtual bool getMove(ChessBoard & board, Move & move) const = 0;
+		virtual bool getMove(ChessBoard & board, Move & move, FILE* filePtr) const = 0;
 
 	protected:
 

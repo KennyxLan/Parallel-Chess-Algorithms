@@ -19,29 +19,58 @@ int main(void) {
 
 	// Initialize players
 	////AIPlayer black(BLACK, 3); original search_depth is 3
-	AIPlayer black(BLACK, 4);
-	HumanPlayer white(WHITE);
+	AIPlayer black(BLACK, SEARCH_DEPTH);
+	//HumanPlayer white(WHITE);
+	AIPlayer white(WHITE, SEARCH_DEPTH);
+
 
 	//// start: seeding the pseudo random number generator
 	int seed; 
 	//seed = time(nullptr);
-	seed = 1621437416; //// fix the seed for debugging
+	//seed = 1234567890; //// fix the seed for debugging
+	seed = 8888; //// fix the seed for debugging
 	srand(seed);
-	printf("seed == %d\n", seed);
 	//// end: seeding the pseudo random number generator
+
+
+	// create a csv file
+	FILE* filePtr = nullptr;
+	char fileName[50];
+	sprintf(fileName, "ava_seed_%d_thread_%d_depth_%d.csv", seed, NUM_THREADS, SEARCH_DEPTH); 
+	filePtr = fopen(fileName, "w");
+	if(filePtr == nullptr){
+		printf(">>>>>> fopen() failed !!! <<<<<<\n");
+		return -2;
+	}
+
+
+	// fprint the header
+	printf("seed == %d, NUM_THREADS == %d, SEARCH_DEPTH == %d,\n", seed, NUM_THREADS, SEARCH_DEPTH);
+	fprintf(filePtr, "seed == %d, NUM_THREADS == %d, SEARCH_DEPTH == %d,\n", seed, NUM_THREADS, SEARCH_DEPTH);
+	for(int tid = 0; tid < NUM_THREADS; tid++){
+		fprintf(filePtr, "thread%d_time,", tid);
+	}
+	fprintf(filePtr, "parallel_time,");
+	for(int tid = 0; tid < NUM_THREADS; tid++){
+		fprintf(filePtr, "thread%d_nodes,", tid);
+	}
+	fprintf(filePtr, "serial_time,serial_nodes,best_same,candidates_same,move\n");
+
+
 
 	// setup board
 	board.initDefaultSetup();
 
 	for(;;) {
+	//for(int i = 0; i < 16; i++) {
 		// show board
-		board.print();
+		//board.print();
 
 		// query player's choice
 		if(turn)
-			found = black.getMove(board, move);
+			found = black.getMove(board, move, filePtr);
 		else
-			found = white.getMove(board, move);
+			found = white.getMove(board, move, filePtr);
 
 		if(!found)
 			break;
@@ -57,7 +86,8 @@ int main(void) {
 
 		// execute move
 		board.move(move);
-		move.print();
+		//move.print();
+		move.print(filePtr);
 
 		// opponents turn
 		turn = TOGGLE_COLOR(turn);
@@ -69,9 +99,13 @@ int main(void) {
 	{
 		case ChessPlayer::Checkmate:
 			printf("Checkmate\n");
+			fprintf(filePtr, "Checkmate\n");
 			break;
 		case ChessPlayer::Stalemate:
 			printf("Stalemate\n");
+			fprintf(filePtr, "Stalemate\n");
 			break;
 	}
+
+	fclose(filePtr);
 }

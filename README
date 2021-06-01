@@ -14,14 +14,17 @@ In `engine` folder, run `make`.
 In `engine` folder, run `./chess`.
 Enter your moves concatenating field names, e.g. 'b2b4'.
 
+-- PROFILE --
+
+perf record -s ./chess  # or   perf record ./chess
+perf report -T          # or   perf report
 
 =======================================================
-parallel-v1 notes:
+parallel-v2 notes:
 
-1. Using Pthreads to parallelize the chess AI algorithms.
-2. `aiplayer.cpp` -- parallelization is added.
-3. `playchess.cpp` -- `search_depth` of black aiplayer has been changed from 3 to 4.
-4. `fasttime.h` has been included for measurement of running times.
-5. Some annotations have been added for readability.
-6. Original serial code is kept.
-7. Some other changes.
+1. Make two AIPlayers play against each other.
+2. Count the number of nodes evaluated by serial code and each parallel thread(including the main thread).
+3. Use `fopen()` , `fprintf()` , `fclose()` and `sprintf()` to print the output in a csv file.
+4. Omit `-O2` when compiling with `g++` (Makefile).
+5. Other changes.
+
